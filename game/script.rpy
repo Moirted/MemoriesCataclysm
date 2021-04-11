@@ -20,6 +20,7 @@ init:
     image room red = "bg/Комната_красная.png"
     image room red half = "bg/Комната_красная_нет_глаза.png"
     image room blue = "bg/Комната_синяя.png"
+    image room contur = "bg/Комната_воспоминания.png"
     image home building = "bg/Вход_в_подъезд.png"
     image elevator = "bg/Лифт.png"
     image floor = "bg/Вход_на_крышу.png"
@@ -112,7 +113,7 @@ label start:
     dad smile 'Vasyan!'
     mom ang 'Lyosha, well, it\'s not funny, let\'s be serious.{w} Maybe Sasha?'
     $ fathername = 'Alexey'
-    #play sound "audio/sound/laugh.mp3"
+    play sound "audio/sound/смех_мужыка.mp3"
     dad smile 'And this woman is telling me about being serious? Don\'t make my horseshoes laugh, it\'s a terrible platitude!'
     dad normal 'He looks shy and constantly self-conscious, he needs a big name to\"sound\"!{w} Also, I think this name should be easy to translate into a short form, at the same time it should be important and serious...'
     mom 'From you as usual, a lot of words are not enough to do, it would be better to offer something yourself!'
@@ -160,15 +161,18 @@ label choice1_no:
 
 label choice1_done:
     dad normal 'By the way, we\'re approaching the house now. Prepare to unload.'
-    'The car gradually slows down and approaches a multi-storey building'
     play sound 'audio/sound/заглушение.mp3'
+    'The car gradually slows down and approaches a multi-storey building'
+    play sound 'audio/sound/шум толпы.mp3'
     stop music
+
     dad 'So, let\'s unload!'
     scene home building with Dissolve(.5)
     play sound 'audio/sound/шум толпы.mp3'
     show mom smile at slightleft
     show dad smile at slightright
     mom 'Home, sweet home!'
+    play music 'audio/music/спокойно.mp3'
     dad 'Now you will feel a new, lovely life. Although we don\'t live very richly, but it will be much better than your shelter.'
     'Then [name] thought: \"I\'d like to believe that.\" But he still looked at them warily, the echoes of the past haunted him.'
     stop sound
@@ -188,6 +192,7 @@ label choice1_done:
     '[name] thought about the fact that he was given a name to choose, but he can\'t go to some random floor, what a stupid thing to do!'
     gg '{i}Are they hiding something from me? Interesting. What should I do?{/i}'
     gg 'If you don\'t want to, I\'ll go to the fifteenth floor myself.'
+    play music 'audio/music/беспокойно.mp3'
     dad ang 'Are you crazy? Where are we going to let you go alone?!'
     mom ang 'Dad\'s right, of course you\'re free of the orphanage now, but we\'re very worried about you.'
     menu:
@@ -196,7 +201,9 @@ label choice1_done:
         "I don\'t care, I\'ll go!.":
             $ bad_guy_root += 1
             '[name] ran out of the elevator and ran into the elevator of the next section'
+            play sound 'audio/sound/выключение_лифта.mp3'
             'Mom and Dad' 'Wait!'
+            play sound 'audio/sound/лифт_едет.mp3'
             'Then no one noticed that the elevator hold button was not pressed, the father and mother went to the previously pressed sixth floor'
             dad ang 'Damn! How did this happen?! What do we do now?'
             mom ang 'We\'re going to the fifteenth, you never know what will happen.'
@@ -215,6 +222,7 @@ label choice1_done:
             gg '{i}Or do they really care about me?{w} Interesting… As long as I believe them.{/i}'
             dad 'Let\'s go home, tomboy.'
             'The boy got off the roof and they went to the nearest elevator.'
+            play music "audio/music/спокойно.mp3" fadeout 1.0 fadein 1.0
             'It seems to me that an adult and a child live in his body at the same time. Like he\'s trying to test us. {i}Tatiana whispered to Alexey.{/i}'
             dad normal 'I don\'t know, I don\'t think so. But even so...'
             dad 'Let him test us as much as he wants, and it looks like we don\'t tell him to...'
@@ -229,7 +237,6 @@ label choice1_done:
             gg '{i}Let\'s see how honest you are with me. As long as I believe you.{/i}'
     mom normal '{i}You should always be on the lookout for his antics. Still, we can\'t miss our chance.{/i}'
 
-
     scene lougnereoom with Dissolve(.5)
     show text '{size=+15}Once upon a time.{/size}' at truecenter
     with dissolve
@@ -237,6 +244,7 @@ label choice1_done:
     hide text
     with dissolve
     show mom normal at slightleft
+    play music 'audio/music/беспокойно.mp3' fadeout 1.0 fadein 1.0
     '{i}Holding a pregnancy test with a single strip{/i}'
     mom 'No...{w} What went wrong again?!{w} Apparently someone from above is just laughing at us!'
     show dad normal at slightright
@@ -248,12 +256,14 @@ label choice1_done:
     dad 'Why not just try it? This may be our only chance to give someone care and love.'
     mom 'I... I don\'t know...{w} We probably don\'t have any other choice, really.'
     dad 'That\'s settled.'
+    stop music
 
 
     scene detipriyut with Dissolve(.5)
     show mom normal at Mleft
     show dad normal at Mright
-    show careg at center
+    show careg normal at center
+    play music 'audio/music/спокойно.mp3' fadeout 1.0 fadein 1.0
     careg 'We can help you with custody, but with one \"but\".'
     careg 'The boy we can give you to raise has problems. He\'s deranged at times.'
     dad 'What do you mean by \"insane\"?'
@@ -268,9 +278,11 @@ label choice1_done:
     scene room after day with Dissolve(.5)
     show mom normal at slightleft
     show dad normal at slightright
+    play music 'audio/music/добрая.mp3' fadeout 1.0 fadein 1.0
     dad 'This is your new home, son.'
     mom smile 'Now we will have a full-fledged family in our home!'
     gg '{i}Everyone considers me a member of the family, and they haven\'t even asked me if I consider them parents.{/i}'
+    play sound 'audio/sound/дверь_открытие.mp3'
     dad @ smile 'Look, this is your room, isn\'t it cool?'
     gg 'Wow, a whole room of my own... I never dreamed of this before.'
     'But [name] still had doubts. He didn\'t believe that everything could be so easy to enjoy.'
@@ -314,6 +326,7 @@ label choice1_done:
             show mom normal at slightright
             'Tatiana looked at [name] sadly.'
     gg 'I\'ll go to bed now, but I can\'t let my guard down.'
+    stop music
 
     scene blackview with Dissolve(3)
     show text '{size=+20}Next Day{/size}' at truecenter
@@ -325,13 +338,16 @@ label choice1_done:
 
     gg 'Such a beautiful morning. Unless...'
     scene detipriyut with Fade(0.1, 0.0, 0.5)
+    play music 'audio/music/злая.mp3' fadeout 1.0 fadein 1.0
     'In the shelter, he was beaten for nothing{w} And if you let your guard down, you could get hit on the head.'
     gg 'When will it end...?'
     gg 'I\'m tired of putting up with this, a little more and I\'ll have to go for the kill.'
     'Until then, he couldn\'t remember why he felt so bad there.'
     'After another blow from the teacher, he gets dizzy and loses consciousness'
+    stop music
 
     scene room day with Dissolve(3)
+    play music 'audio/music/беспокойно.mp3' fadeout 1.0 fadein 1.0
     gg 'What?'
     '[name] thought for a couple of seconds that these memories were coming to him for a reason, but later he decided that it was just a dream.'
     gg 'Stop.'
@@ -363,42 +379,46 @@ label choice1_done:
     scene room day with Dissolve(.5)
     show dad normal at slightleft
     show mom normal at slightright
-    'After walking a couple of meters and entering Valentine\'s room, Alexey sees his wife sitting on her lap.'
+    'After walking a couple of meters and entering [name]\'s room, Alexey sees his wife sitting on her lap.'
     dad ang 'What happened? Where is he?'
     '[name] hears Alexey\'s scream and quickly puts all the papers back in the dresser.'
     mom 'I... don\'t know...{w} Just last night he was here, when did he run away?'
     gg '{i}I think I should leave.{w} Goodbye {u}family{/u}, thank you for keeping me overnight.{/i}'
+    play sound 'audio/sound/бег.mp3'
     '[name] gets up and quickly runs away.'
     dad 'So that rustle wasn\'t my {b}glitch{/b}.'
+    play sound 'audio/sound/бег.mp3'
     'Alexey quickly runs out of the room and heads towards the exit.'
 
     scene lougnereoom with Dissolve(.8)
     show dad ang at center
     dad 'Hey! Stop!!'
-    'Alexey, running through the living room, sees Valentine, who opened the door.'
-    #play sound 'audio/sound/doorbreak.mp3'
+    'Alexey, running through the living room, sees [name], who opened the door.'
+    play sound 'audio/sound/дверь_открытие.mp3'
     dad '{size=+5}I\'ll catch up with him!{/size}'
+    stop music
 
     scene blackview with Dissolve(.8)
     'Running down the stairs, Alexey did not see anyone who looked like his {b}son{/b}.'
 
     scene house with Dissolve(.3)
-    #scene house win brok with Dissolve(.3)
+    play music 'audio/music/беспокойно.mp3' fadeout 1.0 fadein 1.0
     gg 'Found it! This is the same house!'
     'After finding a loophole in the fence, he deftly slipped into the yard.'
     gg 'The window is broken? What was going on here...'
     'Looking through the broken window, [name] saw {s}his{/s} room identical to that apartment'
     gg 'What ... nonsense...{w} WHAT??'
     'There was a rustle from behind the main character'
-    #play sound 'audio/sound/udarpogolove.mp3'
     gg 'What kind of {b}farce{/b} is this? Now I\'ll turn around and it won\'t seem too much!'
+    play sound 'audio/sound/удар_поголове.mp3'
     gg 'Ah...ah...'
-    'When [name] tries to turn around, he gets hit on the head.'
+    stop music
 
     scene blackview with fade
     '[name] woke up in a familiar room. It was the apartment he had visited last night.'
 
     scene room after day with Dissolve(.5)
+    play music 'audio/music/brise.mp3' fadeout 1.0 fadein 1.0
     gg '...eh? AAAAAAH!'
     'His condition could be called shock.'
     gg 'What was that? Is this a dream?'
@@ -409,6 +429,7 @@ label choice1_done:
     gg '{i}WHAT THE HELL!?{w} Am I crazy? How can it be explained otherwise?{/i}'
 
     scene lougnereoom with Dissolve(.9)
+    play sound 'audio/sound/бег.mp3'
     gg '{i}I came to the bedroom... right?{/i}'
     gg 'No, I\'ve been here before, this is the living room… I remember exactly... I wanted to go to the bed-'
 
@@ -417,11 +438,12 @@ label choice1_done:
     scene room red with fade
     show mom ang at slightleft with Dissolve(.9)
     show dad ang at slightright with Dissolve(.9)
+    play music 'audio/music/morning.mp3' fadeout 1.0 fadein 1.0
     mom 'Oh, the mischievous one has come. Get ready, now we will tell you off for yesterday.'
     gg '{i}They...{/i}{w} What THE HELL IS GOING ON?'
     dad 'Oh yes… You\'ll be responsible for everything.'
+    play sound 'audio/sound/поножовщина.mp3'
     'Alexey grabs a black helium pen from the table and attacks [name].'
-    #play sound 'audio/sound/hit to eye.mp3'
     scene room red half
     show dad ang at slightright
     gg '{color=#f00}MY EYE! YOU FREAK! I KNEW I COULDN\'T TRUST YOU!{/color}'
@@ -440,10 +462,11 @@ label choice1_done:
     gg '{i}Stop. What?{w} That\'s not what I meant.{w} Or rather, I didn\'t say it out loud.'
     gg 'It\'s all happening in my mind. Exactly. There must be consequences of the past. I must know -'
     scene detipriyut with Dissolve(.6)
-    show careg at center with Dissolve(.6)
+    show careg ang at center with Dissolve(.6)
     careg 'No, {size=+5}it won\'t{/size}.'
+    play sound 'audio/sound/поножовщина.mp3'
     'The Caregiver sticks black gel pen in the orphan\'s arm.'
-    #play sound 'audio/sound/hit to arm.mp3'
+    play music 'audio/music/signal.mp3' fadeout 1.0 fadein 1.0
     gg '{color=#f00}AAAAAAHHHH{/color}'
     menu:
         'Try to resist.':
@@ -455,9 +478,9 @@ label choice1_done:
 label choice2_yes:
     $ parents_root += 1
     gg 'Why is this pain so distinct? It\'s like I\'m in a waking nightmare!'
-    careg 'Think, freak, {size=+5}THINK{/size}'
+    careg ang 'Think, freak, {size=+5}THINK{/size}'
     'The Caregiver takes a cup of hot tea and throws it at the hero'
-    #play sound 'audio/sound/tea throw.mp3'
+    play sound 'audio/sound/пролитие.mp3'
     gg '{size=+5}AH{/size}{size=+10}AAAAAAHH{/size} ... {color=#f00}HOT{/color}!'
     gg 'No, there must be a way out!'
     menu:
@@ -469,13 +492,12 @@ label choice2_yes:
 
         "Hit the caregiver.":
             $ bad_guy_root += 1
-            #play sound 'audio/sound/hit care.mp3'
-            careg 'Oh, well done, you seem to be doing fine!'
+            careg ang 'Oh, well done, you seem to be doing fine!'
             gg '{i}Suddenly, my whole body feels fine and the pain is gone like a feather in the wind.{/i}'
             gg '{i}There\'s something wrong with me, no, there\'s something wrong with my mind.{/i}'
             gg '{i}What\'s going on in the real world right now?{/i}'
             careg 'Have you decided to question the reality of what is happening?'
-            careg 'COME ON{w} THINK{w} BETTER.{w} {color=#f00}AHAHAHAH{/color}.'
+            careg smile 'COME ON{w} THINK{w} BETTER.{w} {color=#f00}AHAHAHAH{/color}.'
             '[name]\'s pain and wounds returned.'
             'He, scalded with boiling water, runs out of the orphanage and faints.'
     jump choice2_done
@@ -499,6 +521,7 @@ label choice2_done:
     gg '{size=+10}I HAVE A CHOICE, SO WHY ISN\'T EVERYTHING GOING ACCORDING TO THE PLAN?!{/size}'
     gg '{i}Again... again… I do not understand.{/i}'
     show mom normal with Dissolve(.8)
+    play music 'audio/music/brise.mp3' fadeout 1.0 fadein 1.0
     'Mother entered the room with a wary look on her face'
     mom 'Son, what\'s wrong?'
     gg 'Mom?'
@@ -518,20 +541,21 @@ label choice2_done:
     mom smile 'Can you imagine, my friend came!'
     mom 'By the way, she works as a caregiver in an orphanage, can you imagine what a good thing!!!'
     gg '{i}Wow. This is a clinic.{/i}'
-    show careg at Mright
+    show careg normal at Mright
     careg 'Hello! Oh, I don\'t think it\'s the right time, I\'m sorry.'
+    play music 'audio/music/life.mp3' fadeout 1.0 fadein 1.0
     mom 'Nothing, go th-'
-    #play sound 'audio/sound/floor hit (упал в обморок).mp3'
+    play sound 'audio/sound/падение.mp3'
     hide mom
     gg 'OK, nothing {b}unusual{/b} so far, as usual someone fainted. Except for a little bloodstain on your {color=#f00}DAMN{/color} WHITE {color=#f00}SHIRT. A FUCKING SERVANT OF GOD!{/color}'
-    careg 'Y-you. Was it you?! Yes, without a doubt!'
+    careg ang 'Y-you. Was it you?! Yes, without a doubt!'
     careg 'You, no, your father!... he... made me wipe the ass of the fucking babies in this filthy orphanage!'
     gg 'Well, well. Haha, this just can\'t be happening. My parents are dead! I, Who killed these creatures with my own hands, can\'t be wrong!!!'
     '{i}That again wasn\'t what [name] wanted to say.{/i}'
     gg '{i}Wh-what? I couldn\'t say it, it\'s not in my {b}scenario{/b}.{/i}'
     gg 'And... what kind of scenario are we talking about?'
     gg 'Yes, about the ordinary, you {color=#f00}stupid idiot{/color}! This is {i}my{/i} story!'
-    show careg at Mright with moveoutright
+    show careg normal at Mright with moveoutright
     'The Caregiver runs out of the room in fright.'
     gg 'The one who calls himself names is the one who calls himself-'
     gg '{i}That is{w} it is… ANSWER ME!{/i}'
@@ -540,7 +564,7 @@ label choice2_done:
     gg '{i}WHAT NECESSARY?{/i}'
     gg '{b}Calm down{/b}.{w} Take a deep breath. I realized that you have emotions, I\'m jealous, but you got carried away.'
     gg '{i}WHAT DID YOU LET YOURSELF DO?{/i}'
-    #play sound 'audio/sound/floor hit (упал в обморок).mp3'
+    play sound 'audio/sound/падение.mp3'
 
     scene blackview with fade
     pause 2
@@ -577,6 +601,7 @@ label choice3_yes:
     $ parents_root += 3
     gg '{i}What can you tell me?{/i}'
     gg 'Haha. You know, it\'s fun to talk to you.'
+    play music 'audio/music/untitled.mp3' fadeout 1.0 fadein 1.0
     gg 'Try to force me. Can you? You\'ll get your answers.'
     menu:
         gg 'Try to force me. Can you? You\'ll get your answers.'
@@ -599,7 +624,7 @@ label choice3_yes:
 
                         'What happened before that?':               # 1.1.1
                             gg 'YOU\'RE NOT LISTENING WELL, AHAHAHAHA!'
-                            $ bad_guy_root += 10
+                            $ bad_guy_root += 5
 
                         'And you\'re a prankster!':                 # 1.1.2
                             gg '{i}You\'re a prankster, haha. A natural clown.{/i}'
@@ -633,7 +658,7 @@ label choice3_yes:
                             gg 'Of course, you killed them with your own hands!'
                             gg '{i}No… I couldn\'t...{/i}'
                             gg 'I didn\'t understand anything. You\'re hopeless.{w} Bye-bye!!!'
-                            $ bad_guy_root += 10
+                            $ bad_guy_root += 5
 
                         'Offended, funny.':                                  # 1.2.2
                             gg '{i}And how do you explain that a {b}ruthless freak} who kills people without a shadow of a doubt{/b} can be offended by a little boy\'s sobs?{/i}'
@@ -653,7 +678,7 @@ label choice3_yes:
                     gg 'You couldn\'t think for a second, I immediately understood your train of thought.'
                     gg '{i}No, I can...{/i}'
                     gg 'No, you can\'t. I\'ll get the body.'
-                    $ bad_guy_root += 10
+                    $ bad_guy_root += 5
 
                 'When it\'s not a plea for mercy, it\'s easy.':  # 2.2
                     gg '{i}It\'s very easy when it\'s not a plea for mercy.{/i}'
@@ -694,15 +719,20 @@ label choice3_no:
     gg 'You couldn\'t think for a second, I immediately understood your train of thought.'
     gg '{i}No, I can...{/i}'
     gg 'No, you can\'t. I\'ll get the body.'
-    $ bad_guy_root += 10
+    $ bad_guy_root += 5
+
 
 
 label choice3_done:
+    stop music
     scene blackview with fade
     pause 3
-    #'Is this a cataclysm?'
+
+    # Is this a cataclysm?
+
     if bad_guy_root < parents_root:
         scene room day with Dissolve(.2)
+        play music 'audio/music/morning.mp3' fadeout 1.0 fadein 1.0
         gg 'I remember everything. Every part of your life.'
         gg 'I understand who… Who has condemned me to all this suffering!'
         gg 'The crazy killer has somehow entered my mind for a while...'
@@ -711,6 +741,7 @@ label choice3_done:
         gg 'Oh, I remember… Exactly...'
 
         scene room contur with Dissolve(1)
+        play music 'audio/music/evening.mp3' fadeout 1.0 fadein 1.0
         '???' 'Son, breakfast is ready!'
         gg '{i}I heard the voice of a very familiar... father?...{/i}'
         'Dad' 'Hurry up, or you\' be late for school!'
@@ -722,20 +753,23 @@ label choice3_done:
         gg '{i}Will I see my father... again?{/i}'
         'Dad' 'So-oooon, get up! I brought you some eggs!'
         gg '{i}Did ... I lose it... but how?{/i}'
-        #play sound 'audio/sound/topot.mp3'
         show dad contur with moveinright
         '???' 'What a happy family. Reminds me of the past...'
+        play music 'audio/music/shelter.mp3' fadeout 1.0 fadein 1.0
         gg 'Suddenly I saw a face that was impossible not to recognize.'
         gg 'This was the true appearance of that madman.'
 
         scene room contur
-        #play sound 'audio/sound/podnos_padaet.mp3'
+        play sound 'audio/sound/поножовщина.mp3'
         'With a sharp movement of the blade, the killer cuts his father\'s throat.'
+        play sound 'audio/sound/поднос.mp3'
         gg 'NOOO! Y-you! YOU {color=#f00}FREAK{/color}!!!'
-        'Murder''Unpleasant, isn\'t it? SO IT WAS VERY, {color=#f00}VERY UNPLEASANT{/color} FOR ME!'
+        murder 'Unpleasant, isn\'t it? SO IT WAS VERY, {color=#f00}VERY UNPLEASANT{/color} FOR ME!'
         gg 'H-hell... no...'
         gg '{size=+15}{color=#f00}I\'LL KILL YOU!{/color}{/size}'
+        play sound 'audio/sound/поножовщина.mp3'
         'The boy furiously jumps on the killer with the capillary pen and sticks it in his eye.'
+        play sound 'audio/sound/поножовщина.mp3'
         'Then, the killer repeatedly wounds him in the body.'
         gg '{size=+15}{color=#f00}HOW DARE YOU?{/color}{/size}'
         murder 'AHHH IT HURTS! STOP! STOP IT!{w} PLEASE-...'
@@ -747,12 +781,14 @@ label choice3_done:
         careg 'It\'s not an easy situation, you know. You committed a murder.'
         careg 'Although you defended yourself, but there will be questions for you, perhaps you will be sent to a separate complex for orphans for re-education.'
         careg 'However, we can {b}hush it up{/b}. Your memory will be erased, and you will live in an {b}ordinary{/b} shelter without knowing grief.'
-        gg '{i}Then I believed it and to get rid of the responsibility agreed immediately. Stupid choice. A choice without a choice for me then.{/i}'
+        gg '{i}Then I believed it and to get rid of the responsibility agreed immediately. Stupid choice. A choice {b}without a choice{/b} for me then.{/i}'
         careg 'All right, then we\'ll take you away.'
+        stop music
 
         scene blackview with fade
         pause 2
         scene room day with Dissolve(.2)
+        play music 'audio/music/evening.mp3' fadeout 1.0 fadein 1.0
         gg 'Then I repeatedly suffered from amnesia not only because of the drugs that I was given.'
         gg 'These beatings… I didn\'t want to remember that it happened to me at the orphanage.'
         gg 'In those moments, my memory seemed to be {b}erased every day{/b}.'
@@ -771,14 +807,16 @@ label choice3_done:
         scene blackview with Dissolve(2)
         'January 4, 2005. [name]\'s birthday.'
         'The boy accepted his foster parents and henceforth did not hide anything from them.'
+        stop music
         scene blackview with Dissolve(5)
-        show text "{size=+20}{color=9cd4eb}You deserve this final{/color}{/size}.\n Good Ending" at truecenter
+        show text "{size=+20}{color=9cd4eb}You deserve this final.{/color}{/size}\n Good Ending" at truecenter
         with dissolve
         pause 5
         hide text
         with dissolve
     else:
         scene room day with Dissolve(.2)
+        play music 'audio/music/signal.mp3' fadeout 1.0 fadein 1.0
         gg '...'
         'In his {b}real{/b} thoughts, [name] couldn\'t say a word.'
         'He was depressed.'
@@ -794,11 +832,14 @@ label choice3_done:
         mom '{i}He doesn\'t look like himself.{/i}'
         show mom normal with easeinright
         'At this time, Valentine pulled out a pair of compasses from a pencil case that was lying nearby'
+        play sound 'audio/sound/вытаскивание.mp3'
         gg 'S-STOP!{w} Don\'t move if life is precious.'
+        play sound 'audio/sound/бег.mp3'
         dad 'What\'s going on there?'
         show dad normal at slightright with moveinright
         gg 'HEY YOU! WHAT DID I TELL YOU?! DON\'T PUSH IT!'
         hide mom normal
+        play sound 'audio/sound/удар_поголове.mp3'
         'Tatiana fell to her knees.'
         dad ang '{b}What the fuck is going on here?!{/b}'
         gg 'Hey you, back off in a good way!'
@@ -820,18 +861,20 @@ label choice3_done:
         dad 'Believe me, believe me, please.'
         mom 'I... can\'t... let him go...'
         mom 'Our dreams have just begun to come true'
-        #play sound 'audio/sound/udar.mp3'
         hide mom normal
+        play sound 'audio/sound/поножовщина.mp3'
         'With a precise stroke of the compass, the [name] wounds the mother.'
 
         scene lougnereoom with fade
         show dad ang at center with fade
+        play sound 'audio/sound/бег.mp3'
         dad 'There is no way out. You\'ll have to pay the price, you beast.'
+        play sound 'audio/sound/вытаскивание.mp3'
         gg 'LET ME JUST {color=#f00}KILL{/color} YOU! STOP RESISTING!'
         gg '{i}There is no way out. Either I die or they die. They will die.{/i}'
-        #play sound 'audio/sound/dverzakrilas.mp3'
 
         scene blackview with fade
+        play sound 'audio/sound/машина_дверь.mp3'
         'The killer runs out of the high-rise building and runs towards the house he once knew.'
         gg '{i}This is my home! I\'ve been living next door to them all this time?{/i}'
         scene house with Dissolve(.5)
@@ -840,11 +883,13 @@ label choice3_done:
         gg 'No, it was his {b}glitch{/b}.'
         gg 'It was in his head, so I could {b}read{/b} it.'
         gg 'I don\'t feel well...'
+        play music 'audio/music/untitled.mp3' fadeout 1.0 fadein 1.0
         'These were echoes of the real [name]\'s consciousness.'
         'He despaired after failing to suppress his second identity.'
         'But I decided that if he didn\'t live in his body, then no one would live in it.'
+        play sound 'audio/sound/падение.mp3'
         gg 'Oh, my heart feels like...something\'s stopping...'
-        #play sound 'audio/sound/upal soz.mp3'
+        stop music
 
         scene blackview with Dissolve(1)
         'Half an hour later, the boy was found in the courtyard of the same house.'
