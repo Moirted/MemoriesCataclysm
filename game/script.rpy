@@ -4,7 +4,7 @@ define gg = Character('[name]', color='#f00')
 define mom = Character("[mothername]", color="#0100fb", image = 'mom')
 define dad = Character("[fathername]", color="ffc368", image = 'dad')
 define careg = Character("Caregiver", color='c8d35f', image = 'careg')
-define murder = Character("Murder", color='da6827')
+define murder = Character("Murder", color='#f00')
 
 init:
     image mom normal = 'mom/mom normal.png'
@@ -220,7 +220,7 @@ label choice1_done:
             'Come on, I was just wondering about the view. I\'ll be right down. [name] said a couple of meters from the edge of the roof.'
             gg '{i}I wonder if they came because they are responsible for me?{/i}'
             gg '{i}Or do they really care about me?{w} Interesting… As long as I believe them.{/i}'
-            dad 'Let\'s go home, tomboy.'
+            dad 'Let\'s go home, madcap.'
             'The boy got off the roof and they went to the nearest elevator.'
             play music "audio/music/спокойно.mp3" fadeout 1.0 fadein 1.0
             'It seems to me that an adult and a child live in his body at the same time. Like he\'s trying to test us. {i}Tatiana whispered to Alexey.{/i}'
@@ -432,6 +432,7 @@ label choice1_done:
     play sound 'audio/sound/бег.mp3'
     gg '{i}I came to the bedroom... right?{/i}'
     gg 'No, I\'ve been here before, this is the living room… I remember exactly... I wanted to go to the bed-'
+    play sound 'audio/sound/падение.mp3'
 
     scene blackview with fade
 
@@ -447,6 +448,7 @@ label choice1_done:
     scene room red half
     show dad ang at slightright
     gg '{color=#f00}MY EYE! YOU FREAK! I KNEW I COULDN\'T TRUST YOU!{/color}'
+    play sound 'audio/sound/падение.mp3'
 
     scene blackview with fade
     scene room red with fade
@@ -492,6 +494,7 @@ label choice2_yes:
 
         "Hit the caregiver.":
             $ bad_guy_root += 1
+            play sound 'audio/sound/удар_поголове.mp3'
             careg ang 'Oh, well done, you seem to be doing fine!'
             gg '{i}Suddenly, my whole body feels fine and the pain is gone like a feather in the wind.{/i}'
             gg '{i}There\'s something wrong with me, no, there\'s something wrong with my mind.{/i}'
@@ -500,6 +503,7 @@ label choice2_yes:
             careg smile 'COME ON{w} THINK{w} BETTER.{w} {color=#f00}AHAHAHAH{/color}.'
             '[name]\'s pain and wounds returned.'
             'He, scalded with boiling water, runs out of the orphanage and faints.'
+    play sound 'audio/sound/падение.mp3'
     jump choice2_done
 
 label choice2_no:
@@ -508,6 +512,7 @@ label choice2_no:
     gg 'It\'s either a dream or reality. One of two things.'
     gg '{i}Two{/i} select buttons?{w} No, there are clearly more of them.{w} Clearly, the world is not divided into black and white…'
     gg 'But what can I do?'
+    play sound 'audio/sound/падение.mp3'
     jump choice2_done
 
 label choice2_done:
@@ -539,7 +544,7 @@ label choice2_done:
     gg 'Of course, I\'ll be right there!'
     mom normal 'By the way, we have guests who were not invited.'
     mom smile 'Can you imagine, my friend came!'
-    mom 'By the way, she works as a caregiver in an orphanage, can you imagine what a good thing!!!'
+    mom 'By the way, he works as a caregiver in an orphanage, can you imagine what a good thing!!!'
     gg '{i}Wow. This is a clinic.{/i}'
     show careg normal at Mright
     careg 'Hello! Oh, I don\'t think it\'s the right time, I\'m sorry.'
@@ -710,6 +715,7 @@ label choice3_yes:
                     gg '{i}You\'re a dead man{w}, accept it and give me back MY body.{w} I\'m surprised you didn\'t realize that yourself.{/i}'
                     gg 'NO, it can\'t be...'
                     $ parents_root += 10
+    play sound 'audio/sound/падение.mp3'
     jump choice3_done
 
 label choice3_no:
@@ -720,6 +726,8 @@ label choice3_no:
     gg '{i}No, I can...{/i}'
     gg 'No, you can\'t. I\'ll get the body.'
     $ bad_guy_root += 5
+    play sound 'audio/sound/падение.mp3'
+    jump choice3_done
 
 
 
@@ -773,6 +781,7 @@ label choice3_done:
         'Then, the killer repeatedly wounds him in the body.'
         gg '{size=+15}{color=#f00}HOW DARE YOU?{/color}{/size}'
         murder 'AHHH IT HURTS! STOP! STOP IT!{w} PLEASE-...'
+        play sound 'audio/sound/падение.mp3'
         scene blackview with fade
         pause 2
 
@@ -794,7 +803,7 @@ label choice3_done:
         gg 'In those moments, my memory seemed to be {b}erased every day{/b}.'
         gg 'Finally. I remembered.'
         '[name] staggers out of his room and slowly walks into the living room.'
-        scene lougnereoom day with Dissolve(.2)
+        scene lougnereoom with Dissolve(.2)
         show dad smile at slightleft
         show mom smile at slightright
         mom 'Wow, who\'s awake! And we made you breakfast here!'
@@ -802,16 +811,21 @@ label choice3_done:
         gg 'I {color=e65440}love{/color} you so much...'
         show dad normal at slightleft
         show mom normal at slightright
-        'Parents looked at Valentine in surprise.'
+        'Parents looked at [name] in surprise.'
         '[name], bursting into tears, hugged them.'
         scene blackview with Dissolve(2)
         'January 4, 2005. [name]\'s birthday.'
         'The boy accepted his foster parents and henceforth did not hide anything from them.'
         stop music
-        scene blackview with Dissolve(5)
+        scene blackview with Dissolve(3)
         show text "{size=+20}{color=9cd4eb}You deserve this final.{/color}{/size}\n Good Ending" at truecenter
         with dissolve
         pause 5
+        hide text
+        with dissolve
+        show text "{size=+5}The game {color=9cd4eb}was done{/color} by {color=9cd4eb}616 - 1 Team{/color}:\n\n MMCS:\n\n Vasilchenko Vitaliy 1.6: Story, sounds, testing.\n Kseniya Kokurina 1.2: Sprites, testing.\n Nikulin Mark 1.8: Programming, testing.\n\n AAI:\n Timofey Tolstenko: Backgrounds, music.{/size}" at truecenter
+        with dissolve
+        pause 12
         hide text
         with dissolve
     else:
@@ -831,7 +845,7 @@ label choice3_done:
         mom 'OK, I\'ll go for now.'
         mom '{i}He doesn\'t look like himself.{/i}'
         show mom normal with easeinright
-        'At this time, Valentine pulled out a pair of compasses from a pencil case that was lying nearby'
+        'At this time, [name] pulled out a pair of compasses from a pencil case that was lying nearby'
         play sound 'audio/sound/вытаскивание.mp3'
         gg 'S-STOP!{w} Don\'t move if life is precious.'
         play sound 'audio/sound/бег.mp3'
@@ -896,11 +910,16 @@ label choice3_done:
         'His pulse stopped, he wasn\'t breathing.'
         'January 4, 2005. [name]\'s birthday.'
         'The boy died. He couldn\'t overcome his fears.{w} At the last moment, he took with him the psychopath he was previously afraid of.'
-        scene blackview with Dissolve(5)
+        scene blackview with Dissolve(3)
         show text "{size=+20}{color=e70202}You deserve this final.{/color}{/size}\n Bad Ending" at truecenter
         with dissolve
         pause 5
         hide text
         with dissolve
-
+        scene blackview with Dissolve(5)
+        show text "{size=+5}The game {color=e70202}was done{/color} by {color=e70202}616 - 1 Team{/color}:\n\n MMCS:\n\n Vasilchenko Vitaliy 1.6: Story, sounds, testing.\n Kseniya Kokurina 1.2: Sprites, testing.\n Nikulin Mark 1.8: Programming, testing.\n\n AAI:\n Timofey Tolstenko: Backgrounds, music.{/size}" at truecenter
+        with dissolve
+        pause 12
+        hide text
+        with dissolve
     return
