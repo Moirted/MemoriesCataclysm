@@ -1,0 +1,12 @@
+--------------------------- Mini-FAQ ----------------------------------------------
+Q: How can I use my saves?
+A: Click start, then right-click anywhere inside the game to open a menu where you can use the saves.
+
+Q: How do I change the text appearance rate?
+A: Click start, then right-click anywhere inside the game to open a menu. Next, go to the preferences section, the settings are there.
+
+Q: I want to play in another language, what should I do?
+A: Unfortunately, only English is supported.
+
+Q: The music is too loud, how do I change the volume?
+A: Click start, then right-click anywhere inside the game to open a menu. Next, go to the preferences section, the settings are there.
